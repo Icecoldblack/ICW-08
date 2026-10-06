@@ -66,7 +66,7 @@ Fill every row with what you actually saw on your device. Do not copy expected v
 ## Reflections (undergraduate prompts 1 to 3)
 
 1. Prediction (written BEFORE T4), then actual result and interpretation:
-   * Prediction: [WRITE THIS BEFORE T4, with your real IDs A and B and the count]. My guess is that both River rows, with their same IDs and ages, come back after a real stop and relaunch, because `init()` reopens the same database file and `_reload()` queries it from `initState()`, so the list is rebuilt from disk and not from memory.
+   * Prediction (written at 6:49 PM, before running T4): ID 1 (River, 21) and ID 2 (River, 35) will both come back after the stop and relaunch, with count 2 and the same IDs, because `init()` reopens the same database file in the app documents directory and `_reload()` queries it from `initState()`, so the list is rebuilt from disk and not from memory. The edited age 35 should survive because the update was committed before the app stopped.
    * Actual: [FILL IN, citing `T4_before.png` and `T4_after.png`].
    * What would disprove it: an empty list, new IDs, or a count that restarted from 0 or 1 after relaunch would mean the data was not restored from SQLite, for example if the app had been uninstalled or storage cleared.
 
@@ -84,3 +84,4 @@ Fill every row with what you actually saw on your device. Do not copy expected v
 
 * Starter source: `database_helper.txt` and the sample `pubspec.yaml` supplied by the instructor. Only `orderBy` was added to the helper.
 * Resources: Flutter SQLite cookbook, sqflite documentation, the activity page.
+* AI assistance: an AI coding assistant helped draft the app code and documentation, as disclosed here per the course AI policy. I reviewed the code, and the tests, screenshots, and observations come from running the app on my own emulator.
