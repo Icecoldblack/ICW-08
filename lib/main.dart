@@ -160,6 +160,10 @@ class _RosterScreenState extends State<RosterScreen> {
     if (text.isEmpty) {
       return 'Enter an age from 0 to 130.';
     }
+    // Digits only (no sign, decimal point, or hex), at most 3 characters.
+    if (!RegExp(r'^\d{1,3}$').hasMatch(text)) {
+      return 'Age must be a whole number such as 21.';
+    }
     final age = int.tryParse(text);
     if (age == null) {
       return 'Age must be a whole number such as 21.';
@@ -328,23 +332,25 @@ class _RosterScreenState extends State<RosterScreen> {
     });
 
     String message;
+    bool deleteSucceeded = false;
     try {
       // Targets the row by its ID, never by name or list position.
       final deleted = await widget.helper.delete(id);
       if (deleted == 1) {
+        deleteSucceeded = true;
         message = 'Deleted ID $id ($name). Rows affected: $deleted.';
-        // If we just deleted the row being edited, clear the edit state.
-        if (_editingId == id && mounted) {
-          setState(() {
-            _editingId = null;
-            _nameController.clear();
-            _ageController.clear();
-          });
-          _formKey.currentState?.reset();
-        }
       } else {
         message = 'Guest ID $id was not found (rows affected: $deleted). '
             'The list was reloaded.';
+      }
+      // Either way that row is gone, so if it was being edited, clear the edit state.
+      if (_editingId == id && mounted) {
+        setState(() {
+          _editingId = null;
+          _nameController.clear();
+          _ageController.clear();
+        });
+        _formKey.currentState?.reset();
       }
     } catch (error, stackTrace) {
       debugPrint('Delete failed: $error\n$stackTrace');
@@ -360,7 +366,7 @@ class _RosterScreenState extends State<RosterScreen> {
       final refreshed = await _reload();
       if (!mounted) return;
       setState(() {
-        _feedback = refreshed
+        _feedback = (refreshed || !deleteSucceeded)
             ? message
             : 'Deleted, but refresh failed. Press Refresh. $message';
       });
