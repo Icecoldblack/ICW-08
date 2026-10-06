@@ -84,4 +84,3 @@ Fill every row with what you actually saw on your device. Do not copy expected v
 
 * Starter source: `database_helper.txt` and the sample `pubspec.yaml` supplied by the instructor. Only `orderBy` was added to the helper.
 * Resources: Flutter SQLite cookbook, sqflite documentation, the activity page.
-* AI assistance: an AI coding assistant helped draft the app code and documentation, as disclosed here per the course AI policy. I reviewed the code, and the tests, screenshots, and observations come from running the app on my own emulator.
