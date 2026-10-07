@@ -1,7 +1,7 @@
 # Fall Festival Roster (In-Class Activity 08, Local Storage Part 1)
 
 * Student: Uyiosa Nehikhuere
-* Course/section: Mobile Application Development
+* Course/section: Mobile Application Development, section ACS05
 * Pathway: Undergraduate (prompts 1 to 3)
 
 ## Setup and run
@@ -56,7 +56,7 @@ Fill every row with what you actually saw on your device. Do not copy expected v
 | T3 Identity | Edit B to 99 then Cancel. Edit B again, Save 35 | B stays 34 after Cancel. Save returns 1, A stays 21, B becomes 35 | Cancel: "Edit canceled. Nothing was changed.", B 34. Save: "Updated ID 2 to River, age 35. Rows affected: 1.", A 21, count 2 | Pass |
 | T4 Restart | Stop and relaunch, no data cleared | Same IDs, names, ages, count, no reseeding | Before: ID 1 River 21, ID 2 River 35, count 2. After relaunch (new process 27758, was 17218): identical, count 2 | Pass |
 | T5 Delete | Cancel deleting A, then confirm and Refresh | Cancel keeps count 2. Confirm returns 1. Only B remains, count 1 | Dialog "Delete ID 1 (River)?". Cancel: count 2. Confirm: "Deleted ID 1 (River). Rows affected: 1." Refresh: only ID 2 River 35, count 1 | Pass |
-| T6 Validation | Space-only name with age 21. Name Maple with ages abc, 1.5, -1, 131 separately. Then Acorn 0 and Oak 130 | Five rejections with feedback, count stays 1. Acorn and Oak accepted, count 3 | Space name + 21: rejected, "Enter a name. Spaces alone do not count.", count 1. Maple + abc: rejected, "Age must be ..." (truncated), count 1. Ages 1.5, -1, 131 and Acorn 0, Oak 130: NOT YET RUN | Partial |
+| T6 Validation | Space-only name with age 21. Name Maple with ages abc, 1.5, -1, 131 separately. Then Acorn 0 and Oak 130 | Five rejections with feedback, count stays 1. Acorn and Oak accepted, count 3 | Space name + 21: rejected, "Enter a name. Spaces alone do not count.", count 1. Maple + abc: rejected, "Age must be ..." (truncated), count 1. Maple + 1.5: rejected, "Age must be ..." feedback, count 1. Maple + -1: rejected, same feedback, count 1. Maple + 131: rejected, same feedback, count 1 (ID 2 River 35 unchanged throughout). Acorn + 0: accepted, "Added Acorn, age 0. New ID: 3.", count 2. Oak + 130: accepted, "Added Oak, age 130. New ID: 4.", count 3. Final rows: ID 2 River 35, ID 3 Acorn 0, ID 4 Oak 130 | Pass |
 
 * Exact stop and relaunch method used for T4: stopped the Flutter debug session in Android Studio (the app process ended and the emulator returned to another app), then started a new `flutter run` on the same emulator without uninstalling or clearing data. The log shows a new process ID. App info Force stop was not used.
 * Screenshots: `evidence/T4_before.png`, `evidence/T4_after.png`, `evidence/T6_invalid.png`
